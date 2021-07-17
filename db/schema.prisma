@@ -7,10 +7,57 @@ datasource db {
 }
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["referentialActions"]
 }
 
 // --------------------------------------
+
+model Candidate {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  nama      String
+  nilai     String
+
+  subCiteria SubCriteria[]
+}
+
+model TabelBobotGap {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  selisih    Float
+  bobtNilia  Float
+  keterangan String
+}
+
+model SubCriteria {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  nama        String
+  nilaiTarget Float
+  type        String
+
+  candidate Candidate[]
+
+  criteria   Criteria @relation(fields: [criteriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  criteriaId Int
+}
+
+model Criteria {
+  id              Int      @id @default(autoincrement())
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  nama            String
+  bobot           Float
+  coreFactor      Float
+  secondaryFactor Float
+
+  subCriteria SubCriteria[]
+}
 
 model User {
   id             Int      @id @default(autoincrement())
