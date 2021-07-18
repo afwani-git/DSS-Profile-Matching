@@ -5,7 +5,7 @@ import { z } from "zod"
 const CreateTabelBobotGap = z.object({
   selisih: z.number(),
   bobtNilia: z.number(),
-  keterangan: z.number(),
+  keterangan: z.string(),
 })
 
 export default resolver.pipe(resolver.zod(CreateTabelBobotGap), async (input) => {

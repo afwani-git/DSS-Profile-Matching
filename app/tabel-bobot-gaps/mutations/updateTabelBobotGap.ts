@@ -6,7 +6,7 @@ const UpdateTabelBobotGap = z.object({
   id: z.number(),
   selisih: z.number(),
   bobtNilia: z.number(),
-  keterangan: z.number(),
+  keterangan: z.string(),
 })
 
 export default resolver.pipe(resolver.zod(UpdateTabelBobotGap), async ({ id, ...data }) => {
