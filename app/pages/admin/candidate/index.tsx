@@ -4,12 +4,16 @@ import { AdminLayout } from "../../../core/layouts/Admin"
 import { Row, Col, Collapse, Button, Card, Dropdown } from "react-bootstrap"
 import { ListCandidateTable } from "../../../admins/components/ListCandidateTable"
 import { Info } from "../../../admins/components/Info"
+import { Penilaian } from "../../../admins/components/Penilaian"
 import fetchAllCandidate from "../../../candidates/queries/getCandidates"
 import fetchAllCriteria from "../../../criteria/queries/getCriteria"
 import fetchAllSubCriteria from "../../../sub-criteria/queries/getSubCriteria"
 import fetchAllGapTable from "../../../tabel-bobot-gaps/queries/getTabelBobotGaps"
 
 const CandidatePage: BlitzPage = () => {
+  //state
+  const [table, setTable] = useState("default")
+
   //api
   const [fetchCandidate, resFCandidate] = useQuery(fetchAllCandidate, {})
   const [fetchCriteria, resCriteria] = useQuery(fetchAllCriteria, {})
@@ -25,10 +29,10 @@ const CandidatePage: BlitzPage = () => {
               <h6 className="text-secondary text-center">Action</h6>
               <hr />
               <div className="d-flex flex-column">
-                <Button variant="dark">
+                <Button variant="dark" onClick={() => setTable("default")}>
                   <i className="ni ni-badge"></i> Candidate
                 </Button>
-                <Button variant="dark">
+                <Button variant="dark" onClick={() => setTable("penilaian")}>
                   <i className="ni ni-active-40"></i> Penilaian
                 </Button>
               </div>
@@ -46,7 +50,7 @@ const CandidatePage: BlitzPage = () => {
       </Row>
       <Row>
         <Col md={12} sm={12}>
-          <ListCandidateTable />
+          {table == "default" ? <ListCandidateTable /> : <Penilaian />}
         </Col>
       </Row>
     </>

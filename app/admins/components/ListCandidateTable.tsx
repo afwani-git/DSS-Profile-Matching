@@ -214,7 +214,10 @@ export const ListCandidateTable: React.FC = () => {
 
               <p className="text-sm mb-0">
                 <i className="fa fa-check text-info" aria-hidden="true"></i>
-                <span className="font-weight-bold ms-1 text-success">30 user</span> in this table
+                <span className="font-weight-bold ms-1 text-success">
+                  {data.candidates.length} user
+                </span>{" "}
+                in this table
               </p>
             </div>
           </div>

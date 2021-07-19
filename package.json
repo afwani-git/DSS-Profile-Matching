@@ -28,6 +28,7 @@
     "blitz": "0.38.5",
     "final-form": "4.20.2",
     "formik": "2.2.9",
+    "lodash": "4.17.21",
     "moment": "2.29.1",
     "react": "alpha",
     "react-bootstrap": "1.6.1",

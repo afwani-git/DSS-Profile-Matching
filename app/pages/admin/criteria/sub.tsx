@@ -75,88 +75,87 @@ const CriteriaPage: BlitzPage = () => {
 
   return (
     <>
+      {/*Modal*/}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Add Data</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Formik
+            initialValues={{ nama: "", nilaiTarget: "", type: "", criteriaId: selectedId.parentId }}
+            onSubmit={async (value, { setSubmitting }) => {
+              await add({
+                nama: value.nama,
+                nilaiTarget: Number.parseFloat(value.nilaiTarget),
+                type: value.type,
+                criteriaId: selectedId.parentId ? selectedId.parentId : 999,
+              })
+              await extraRes.refetch()
+              setSelectedId({
+                childId: null,
+                parentId: null,
+              })
+              setShow(false)
+            }}
+            validationSchema={validationSchema}
+          >
+            {({ isSubmitting }) => (
+              <Form>
+                <Field type="hidden" value={selectedId.parentId} />
+
+                <div className="form-group">
+                  <label>Nama</label>
+                  <Field
+                    className="form-control"
+                    type="text"
+                    name="nama"
+                    placeholder="nama... . "
+                  />
+                  <ErrorMessage name="nama" component="small" className="text-danger" />
+                </div>
+
+                <div className="form-group">
+                  <label>Nilai Target</label>
+                  <Field
+                    className="form-control"
+                    type="text"
+                    name="nilaiTarget"
+                    placeholder="nilaiTarget... . "
+                  />
+                  <ErrorMessage name="nilaiTarget" component="small" className="text-danger" />
+                </div>
+
+                <div className="form-group">
+                  <label>Type</label>
+                  <Field
+                    className="form-control"
+                    type="text"
+                    name="type"
+                    placeholder="type... . "
+                  />
+                  <ErrorMessage name="type" component="small" className="text-danger" />
+                </div>
+
+                <button
+                  className="btn bg-gradient-success m-1"
+                  type="submit"
+                  disabled={isSubmitting}
+                >
+                  Submit
+                </button>
+                <Button variant="secondary" onClick={handleClose} className="m-1">
+                  Close
+                </Button>
+              </Form>
+            )}
+          </Formik>
+        </Modal.Body>
+      </Modal>
+
       <div className="row">
         {extraRes.isSuccess &&
           data.criteria.map((data) => (
             <div key={data.id}>
-              {/*Modal*/}
-
-              <Modal show={show} onHide={handleClose}>
-                <Modal.Header>
-                  <Modal.Title>Add Data</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Formik
-                    initialValues={{ nama: "", nilaiTarget: "", type: "", criteriaId: data.id }}
-                    onSubmit={async (value, { setSubmitting }) => {
-                      await add({
-                        nama: value.nama,
-                        nilaiTarget: Number.parseFloat(value.nilaiTarget),
-                        type: value.type,
-                        criteriaId: data.id,
-                      })
-                      await extraRes.refetch()
-                      setShow(false)
-                    }}
-                    validationSchema={validationSchema}
-                  >
-                    {({ isSubmitting }) => (
-                      <Form>
-                        <Field type="hidden" value={data.id} />
-
-                        <div className="form-group">
-                          <label>Nama</label>
-                          <Field
-                            className="form-control"
-                            type="text"
-                            name="nama"
-                            placeholder="nama... . "
-                          />
-                          <ErrorMessage name="nama" component="small" className="text-danger" />
-                        </div>
-
-                        <div className="form-group">
-                          <label>Nilai Target</label>
-                          <Field
-                            className="form-control"
-                            type="text"
-                            name="nilaiTarget"
-                            placeholder="nilaiTarget... . "
-                          />
-                          <ErrorMessage
-                            name="nilaiTarget"
-                            component="small"
-                            className="text-danger"
-                          />
-                        </div>
-
-                        <div className="form-group">
-                          <label>Type</label>
-                          <Field
-                            className="form-control"
-                            type="text"
-                            name="type"
-                            placeholder="type... . "
-                          />
-                          <ErrorMessage name="type" component="small" className="text-danger" />
-                        </div>
-
-                        <button
-                          className="btn bg-gradient-success m-1"
-                          type="submit"
-                          disabled={isSubmitting}
-                        >
-                          Submit
-                        </button>
-                        <Button variant="secondary" onClick={handleClose} className="m-1">
-                          Close
-                        </Button>
-                      </Form>
-                    )}
-                  </Formik>
-                </Modal.Body>
-              </Modal>
-
               {/*TABLE SHOW*/}
               <div className="col-12">
                 <div className="card mb-4" style={{ minHeight: "340px" }}>
@@ -166,7 +165,13 @@ const CriteriaPage: BlitzPage = () => {
                       <span
                         style={{ cursor: "pointer" }}
                         className="badge m-2 badge-sm bg-gradient-success"
-                        onClick={handleShow}
+                        onClick={() => {
+                          setSelectedId({
+                            ...selectedId,
+                            parentId: data.id,
+                          })
+                          handleShow()
+                        }}
                       >
                         + Tambah Data
                       </span>
@@ -197,7 +202,7 @@ const CriteriaPage: BlitzPage = () => {
                         </thead>
                         <tbody>
                           {data.subCriteria.map((dataSub) => (
-                            <tr key={`${dataSub}-${data}`}>
+                            <tr key={`${dataSub.id}-${data.id}`}>
                               <td className="align-middle text-center">
                                 {selectedId.parentId == data.id &&
                                 selectedId.childId == dataSub.id ? (
@@ -255,7 +260,7 @@ const CriteriaPage: BlitzPage = () => {
                                 <span
                                   style={{ cursor: "pointer" }}
                                   className="badge m-2 badge-sm bg-gradient-danger"
-                                  onClick={() => handleDelete(data.id)}
+                                  onClick={() => handleDelete(dataSub.id)}
                                 >
                                   delete
                                 </span>
