@@ -25,5 +25,21 @@ export default resolver.pipe(resolver.zod(CreateSubCriterion), async ({ criteria
     },
   })
 
+  const candidate = await db.candidate.findMany()
+  const listPenilaian: any[] = []
+
+  candidate.map((candidate) => {
+    listPenilaian.push(
+      db.penilaian.create({
+        data: {
+          candidateId: candidate.id,
+          subCiteriaId: subCriteria.id,
+        },
+      })
+    )
+  })
+
+  await db.$transaction(listPenilaian)
+
   return subCriteria
 })

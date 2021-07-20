@@ -12,6 +12,15 @@ generator client {
 }
 
 // --------------------------------------
+model Penilaian {
+  id    Int    @id @default(autoincrement())
+  nilai Float? @default(0)
+
+  subCiteria   SubCriteria @relation(fields: [subCiteriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  candidate    Candidate   @relation(fields: [candidateId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  subCiteriaId Int
+  candidateId  Int
+}
 
 model Candidate {
   id        Int      @id @default(autoincrement())
@@ -20,9 +29,8 @@ model Candidate {
   nama      String
   alamat    String?
   email     String
-  nilai     Float?   @default(0)
 
-  subCiteria SubCriteria[]
+  penilaian Penilaian[]
 }
 
 model TabelBobotGap {
@@ -43,7 +51,7 @@ model SubCriteria {
   nilaiTarget Float
   type        String
 
-  candidate Candidate[]
+  penilaian Penilaian[]
 
   criteria   Criteria @relation(fields: [criteriaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   criteriaId Int
