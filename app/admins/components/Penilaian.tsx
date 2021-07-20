@@ -28,18 +28,22 @@ export const Penilaian: React.FC = () => {
 
   //action
   const handleChange = (evt: React.ChangeEvent<any>) => {
-    setFilteredData(dataCriteria.criteria.filter((data) => data.nama == evt.currentTarget.value)[0])
-    console.log(filteredData)
+    const filteredData = dataCriteria.criteria.filter(
+      (data) => data.nama == evt.currentTarget.value
+    )[0]
+
+    setFilteredData(filteredData)
     let filteredId: number[] = []
-    filteredData.subCriteria.map((data) => {
+    filteredData!.subCriteria.map((data) => {
       filteredId.push(data.id)
     })
 
     setFilteredId(filteredId)
+  }
 
+  useEffect(() => {
     let dataResult: any[] = []
     setTableData(dataResult)
-
     _.forEach(_.groupBy(dataPenilaian.penilaians, "candidate.id"), function (data, value) {
       const result = data.map((dat) => {
         return {
@@ -56,41 +60,13 @@ export const Penilaian: React.FC = () => {
       })
     })
     setTableData(dataResult)
-    console.log(dataResult)
-  }
-
-  useEffect(() => {
-    if (tableData.length == 0) {
-      console.log("filteredId triger")
-      let dataResult: any[] = []
-      setTableData(dataResult)
-      _.forEach(_.groupBy(dataPenilaian.penilaians, "candidate.id"), function (data, value) {
-        const result = data.map((dat) => {
-          return {
-            nilai: dat.nilai,
-            idPenilaian: dat.id,
-            subCId: dat.subCiteria.id,
-            subCName: dat.subCiteria.nama,
-          }
-        })
-        const nameCandidate = data[0]!.candidate.nama
-        dataResult.push({
-          data: result,
-          nameCandidate,
-        })
-      })
-      setTableData(dataResult)
-      console.log(dataResult)
-    }
   }, [filteredId])
 
   useEffect(() => {
     if (criteriaRes.isFetched && tableData.length == 0) {
       setFilteredData(dataCriteria.criteria[0])
       let filteredId: number[] = []
-      console.log("setFilteredData change")
       if (filteredData && tableData.length == 0) {
-        console.log("foo 1 filteredData effect")
         filteredData.subCriteria.map((data) => {
           filteredId.push(data.id)
         })
@@ -100,7 +76,6 @@ export const Penilaian: React.FC = () => {
     }
   }, [filteredData])
 
-  // console.log(tableData);
   return (
     <div>
       {tableData.length ? (
