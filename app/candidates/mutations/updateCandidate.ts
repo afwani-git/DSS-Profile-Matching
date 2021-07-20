@@ -9,9 +9,13 @@ const UpdateCandidate = z.object({
   email: z.string(),
 })
 
-export default resolver.pipe(resolver.zod(UpdateCandidate), async ({ id, ...data }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const candidate = await db.candidate.update({ where: { id }, data })
+export default resolver.pipe(
+  resolver.zod(UpdateCandidate),
+  resolver.authorize(),
+  async ({ id, ...data }) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const candidate = await db.candidate.update({ where: { id }, data })
 
-  return candidate
-})
+    return candidate
+  }
+)

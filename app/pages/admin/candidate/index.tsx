@@ -58,5 +58,6 @@ const CandidatePage: BlitzPage = () => {
 }
 
 CandidatePage.getLayout = (page) => <AdminLayout>{page}</AdminLayout>
+CandidatePage.authenticate = { redirectTo: "/" }
 
 export default CandidatePage

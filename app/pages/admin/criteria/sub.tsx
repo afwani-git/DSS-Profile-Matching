@@ -282,5 +282,6 @@ const CriteriaPage: BlitzPage = () => {
 
 // AdminsPage.authenticate = true
 CriteriaPage.getLayout = (page) => <AdminLayout>{page}</AdminLayout>
+CriteriaPage.authenticate = { redirectTo: "/" }
 
 export default CriteriaPage

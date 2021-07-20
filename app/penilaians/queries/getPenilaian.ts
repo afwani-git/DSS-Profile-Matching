@@ -7,7 +7,7 @@ const GetPenilaian = z.object({
   id: z.number().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(resolver.zod(GetPenilaian), async ({ id }) => {
+export default resolver.pipe(resolver.zod(GetPenilaian), resolver.authorize(), async ({ id }) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const penilaian = await db.penilaian.findFirst({ where: { id } })
 

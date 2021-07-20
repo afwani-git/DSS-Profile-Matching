@@ -9,9 +9,13 @@ const UpdateTabelBobotGap = z.object({
   keterangan: z.string(),
 })
 
-export default resolver.pipe(resolver.zod(UpdateTabelBobotGap), async ({ id, ...data }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const tabelBobotGap = await db.tabelBobotGap.update({ where: { id }, data })
+export default resolver.pipe(
+  resolver.zod(UpdateTabelBobotGap),
+  resolver.authorize(),
+  async ({ id, ...data }) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const tabelBobotGap = await db.tabelBobotGap.update({ where: { id }, data })
 
-  return tabelBobotGap
-})
+    return tabelBobotGap
+  }
+)

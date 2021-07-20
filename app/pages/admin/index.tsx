@@ -16,5 +16,6 @@ const AdminsPage: BlitzPage = () => {
 
 // AdminsPage.authenticate = true
 AdminsPage.getLayout = (page) => <AdminLayout>{page}</AdminLayout>
+AdminsPage.authenticate = { redirectTo: "/" }
 
 export default AdminsPage

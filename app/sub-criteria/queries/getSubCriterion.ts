@@ -8,6 +8,7 @@ const GetSubCriterion = z.object({
 })
 
 export default resolver.pipe(
+  resolver.authorize(),
   resolver.zod(GetSubCriterion),
   resolver.authorize(),
   async ({ id }) => {

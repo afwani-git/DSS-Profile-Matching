@@ -8,9 +8,13 @@ const CreateTabelBobotGap = z.object({
   keterangan: z.string(),
 })
 
-export default resolver.pipe(resolver.zod(CreateTabelBobotGap), async (input) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const tabelBobotGap = await db.tabelBobotGap.create({ data: input })
+export default resolver.pipe(
+  resolver.zod(CreateTabelBobotGap),
+  resolver.authorize(),
+  async (input) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const tabelBobotGap = await db.tabelBobotGap.create({ data: input })
 
-  return tabelBobotGap
-})
+    return tabelBobotGap
+  }
+)

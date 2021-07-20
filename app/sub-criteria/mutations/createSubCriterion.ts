@@ -9,37 +9,41 @@ const CreateSubCriterion = z.object({
   criteriaId: z.number(),
 })
 
-export default resolver.pipe(resolver.zod(CreateSubCriterion), async ({ criteriaId, ...data }) => {
-  const criteria = await db.criteria.findFirst({
-    where: { id: criteriaId },
-  })
+export default resolver.pipe(
+  resolver.zod(CreateSubCriterion),
+  resolver.authorize(),
+  async ({ criteriaId, ...data }) => {
+    const criteria = await db.criteria.findFirst({
+      where: { id: criteriaId },
+    })
 
-  const subCriteria = await db.subCriteria.create({
-    data: {
-      ...data,
-      criteria: {
-        connect: {
-          id: criteria!.id,
+    const subCriteria = await db.subCriteria.create({
+      data: {
+        ...data,
+        criteria: {
+          connect: {
+            id: criteria!.id,
+          },
         },
       },
-    },
-  })
+    })
 
-  const candidate = await db.candidate.findMany()
-  const listPenilaian: any[] = []
+    const candidate = await db.candidate.findMany()
+    const listPenilaian: any[] = []
 
-  candidate.map((candidate) => {
-    listPenilaian.push(
-      db.penilaian.create({
-        data: {
-          candidateId: candidate.id,
-          subCiteriaId: subCriteria.id,
-        },
-      })
-    )
-  })
+    candidate.map((candidate) => {
+      listPenilaian.push(
+        db.penilaian.create({
+          data: {
+            candidateId: candidate.id,
+            subCiteriaId: subCriteria.id,
+          },
+        })
+      )
+    })
 
-  await db.$transaction(listPenilaian)
+    await db.$transaction(listPenilaian)
 
-  return subCriteria
-})
+    return subCriteria
+  }
+)

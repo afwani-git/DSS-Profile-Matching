@@ -9,9 +9,13 @@ const UpdateSubCriterion = z.object({
   type: z.string(),
 })
 
-export default resolver.pipe(resolver.zod(UpdateSubCriterion), async ({ id, ...data }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const subCriteria = await db.subCriteria.update({ where: { id }, data })
+export default resolver.pipe(
+  resolver.zod(UpdateSubCriterion),
+  resolver.authorize(),
+  async ({ id, ...data }) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const subCriteria = await db.subCriteria.update({ where: { id }, data })
 
-  return subCriteria
-})
+    return subCriteria
+  }
+)

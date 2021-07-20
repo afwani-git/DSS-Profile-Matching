@@ -7,16 +7,21 @@ const GetCriterion = z.object({
   id: z.number().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(resolver.zod(GetCriterion), resolver.authorize(), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const criterion = await db.criteria.findFirst({
-    where: { id },
-    include: {
-      subCriteria: true,
-    },
-  })
+export default resolver.pipe(
+  resolver.zod(GetCriterion),
+  resolver.authorize(),
+  resolver.authorize(),
+  async ({ id }) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const criterion = await db.criteria.findFirst({
+      where: { id },
+      include: {
+        subCriteria: true,
+      },
+    })
 
-  if (!criterion) throw new NotFoundError()
+    if (!criterion) throw new NotFoundError()
 
-  return criterion
-})
+    return criterion
+  }
+)

@@ -8,7 +8,7 @@ const CreateCandidate = z.object({
   email: z.string(),
 })
 
-export default resolver.pipe(resolver.zod(CreateCandidate), async (input) => {
+export default resolver.pipe(resolver.zod(CreateCandidate), resolver.authorize(), async (input) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const candidate = await db.candidate.create({
     data: input,

@@ -9,7 +9,7 @@ const CreateCriterion = z.object({
   secondaryFactor: z.number(),
 })
 
-export default resolver.pipe(resolver.zod(CreateCriterion), async (input) => {
+export default resolver.pipe(resolver.zod(CreateCriterion), resolver.authorize(), async (input) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
   const criterion = await db.criteria.create({ data: input })
 

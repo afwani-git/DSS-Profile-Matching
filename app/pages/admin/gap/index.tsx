@@ -241,5 +241,6 @@ const GapTablePage: BlitzPage = () => {
 }
 
 GapTablePage.getLayout = (page) => <AdminLayout>{page}</AdminLayout>
+GapTablePage.authenticate = { redirectTo: "/" }
 
 export default GapTablePage

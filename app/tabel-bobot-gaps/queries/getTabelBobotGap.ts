@@ -7,11 +7,15 @@ const GetTabelBobotGap = z.object({
   id: z.number().optional().refine(Boolean, "Required"),
 })
 
-export default resolver.pipe(resolver.zod(GetTabelBobotGap), async ({ id }) => {
-  // TODO: in multi-tenant app, you must add validation to ensure correct tenant
-  const tabelBobotGap = await db.tabelBobotGap.findFirst({ where: { id } })
+export default resolver.pipe(
+  resolver.zod(GetTabelBobotGap),
+  resolver.authorize(),
+  async ({ id }) => {
+    // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+    const tabelBobotGap = await db.tabelBobotGap.findFirst({ where: { id } })
 
-  if (!tabelBobotGap) throw new NotFoundError()
+    if (!tabelBobotGap) throw new NotFoundError()
 
-  return tabelBobotGap
-})
+    return tabelBobotGap
+  }
+)
