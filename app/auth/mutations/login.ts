@@ -29,6 +29,7 @@ export default resolver.pipe(resolver.zod(AuthInput), async (input, ctx: Ctx) =>
   }
 
   const { hashedPassword, ...rest } = user
-  await ctx.session.$create({ userId: user.id })
+  const role: any = user.role as any
+  await ctx.session.$create({ userId: user.id, role })
   return rest
 })
