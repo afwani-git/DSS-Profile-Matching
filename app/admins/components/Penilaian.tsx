@@ -37,7 +37,7 @@ export const Penilaian: React.FC = () => {
       id,
       nilai: Number.parseFloat(inputNilaiRef.current!.value),
     })
-
+    await criteriaRes.refetch();
     await penilaianRes.refetch();
     setSelectedId(null)
   }
@@ -55,6 +55,7 @@ export const Penilaian: React.FC = () => {
 
     setFilteredId(filteredId)
   }
+
 
   useEffect(() => {
     let dataResult: any[] = []
@@ -75,7 +76,7 @@ export const Penilaian: React.FC = () => {
       })
     })
     setTableData(dataResult)
-  }, [filteredId])
+  }, [filteredId, dataCriteria, dataPenilaian])
 
   useEffect(() => {
     if (criteriaRes.isFetched && tableData.length == 0) {
@@ -89,7 +90,7 @@ export const Penilaian: React.FC = () => {
         setFilteredId(filteredId)
       }
     }
-  }, [filteredData])
+  }, [filteredData, dataCriteria, dataPenilaian])
 
   return (
     <div>
