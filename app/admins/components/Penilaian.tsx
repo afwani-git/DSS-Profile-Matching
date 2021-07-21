@@ -1,19 +1,23 @@
 import { useQuery, useMutation } from "blitz"
 import * as _ from "lodash"
-import React, { useState, useEffect } from "react"
-import { FormGroup, FormLabel, FormControl, Table, Dropdown, Form } from "react-bootstrap"
+import React, { useState, useEffect, useRef } from "react"
+import { FormGroup, FormLabel, FormControl, Button,Table, Dropdown, Form, InputGroup } from "react-bootstrap"
 import fetchAllCriteria from "../../criteria/queries/getCriteria"
 import fetchAllPenilaian from "../../penilaians/queries/getPenilaians"
 import updatePenilaian from "../../penilaians/mutations/updatePenilaian"
 import { Criteria } from "db"
 
 export const Penilaian: React.FC = () => {
+  //ref
+  const inputNilaiRef = useRef<HTMLInputElement>(null);
+
   //state
   const [filteredData, setFilteredData] = useState<any>(null)
   const [colFilData, setColFilData] = useState<any>(null)
   const [selectedData, setSelectedData] = useState<string>("")
   const [filteredId, setFilteredId] = useState<number[]>([])
   const [tableData, setTableData] = useState<any[]>([])
+  const [selectedId, setSelectedId] = useState<number|null>(null);
 
   //api
   const [dataCriteria, criteriaRes] = useQuery(fetchAllCriteria, {})
@@ -27,6 +31,17 @@ export const Penilaian: React.FC = () => {
   })
 
   //action
+
+  const handleUpdatePenilaian = async (id: number) => {
+    await updateNilai({
+      id,
+      nilai: Number.parseFloat(inputNilaiRef.current!.value),
+    })
+
+    await penilaianRes.refetch();
+    setSelectedId(null)
+  }
+
   const handleChange = (evt: React.ChangeEvent<any>) => {
     const filteredData = dataCriteria.criteria.filter(
       (data) => data.nama == evt.currentTarget.value
@@ -112,6 +127,9 @@ export const Penilaian: React.FC = () => {
             </div>
           </div>
           <div className="card-body px-0 pb-2">
+            <sub className="ml-1 text-sm text-danger">
+            * click nilai untuk edit
+            </sub>
             <div className="table-responsive">
               <table className="table align-items-center mb-0">
                 <thead>
@@ -135,7 +153,29 @@ export const Penilaian: React.FC = () => {
                           <td className="align-middle text-center">{data.nameCandidate}</td>
                           {data.data.map((resDat, num = 1) => (
                             <td key={num++} className="align-middle text-center">
-                              {resDat.nilai}
+                            {
+                              selectedId == resDat.idPenilaian ? (
+                                    <div>
+                                      <FormControl
+                                        defaultValue={resDat.nilai}
+                                        ref={inputNilaiRef}
+                                        size="sm"
+                                      />
+                                      <Button size="sm" variant="outline-secondary" onClick={() => handleUpdatePenilaian(resDat.idPenilaian)}>
+                                        Save
+                                      </Button>
+                                    </div>
+                                ) : (
+                                <span
+                                  style={{
+                                    cursor: "pointer"
+                                  }}
+                                  onClick={() => setSelectedId(resDat.idPenilaian)}
+                                >
+                                    {resDat.nilai}
+                                </span>
+                                )
+                              }
                             </td>
                           ))}
                         </tr>

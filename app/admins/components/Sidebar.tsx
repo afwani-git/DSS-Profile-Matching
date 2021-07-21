@@ -1,5 +1,13 @@
 import React from "react"
+import {
+  useMutation,
+  useSession
+} from 'blitz';
 import { useRouter } from "blitz"
+import Logout from '../../auth/mutations/logout';
+import {
+  Spinner
+} from 'react-bootstrap';
 
 type listPageType = {
   name: string
@@ -42,6 +50,7 @@ const listPage: listPageType[] = [
 
 export const SideBar: React.FC = () => {
   const router = useRouter()
+  const [logout, resLogOut] = useMutation(Logout);
 
   return (
     <aside
@@ -80,6 +89,33 @@ export const SideBar: React.FC = () => {
               </a>
             </li>
           ))}
+          <li className="nav-item">
+            {
+              resLogOut.isLoading ? (
+                  <div className="nav-link">
+                  <Spinner animation="grow"/>
+                  Take Action... . 
+                  </div>
+              ):(
+                <a
+                  className={`nav-link`}
+                  href="#"
+                  onClick={(evt) => {
+                    evt.preventDefault()
+                    logout()
+                  }}
+                >
+                  <div className="icon icon-shape icon-md shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                    <i
+                      className="ni ni-circle-08"
+                      style={{ color: `black` }}
+                    ></i>
+                  </div>
+                  <span className="nav-link-text ms-1">Logout</span>
+                </a>
+              )
+            }
+            </li>
         </ul>
       </div>
     </aside>

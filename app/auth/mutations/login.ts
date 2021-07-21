@@ -10,6 +10,7 @@ const AuthInput = z.object({
 
 export default resolver.pipe(resolver.zod(AuthInput), async (input, ctx: Ctx) => {
   // TODO: in multi-tenant app, you must add validation to ensure correct tenant
+
   const user = await db.user.findFirst({
     where: {
       email: input.email,
@@ -18,18 +19,12 @@ export default resolver.pipe(resolver.zod(AuthInput), async (input, ctx: Ctx) =>
 
   if (!user) throw new AuthenticationError()
 
-  const result = await SecurePassword.verify(user.hashedPassword, input.password)
+  if (input.password == user.hashedPassword) {
 
-  if (result === SecurePassword.VALID_NEEDS_REHASH) {
-    const improvedHash = await SecurePassword.hash(input.password)
-    await db.user.update({
-      where: { id: user.id },
-      data: { hashedPassword: improvedHash },
-    })
+    const role: any = user.role as any
+
+    return ctx.session.$create({ userId: user.id, role })
   }
 
-  const { hashedPassword, ...rest } = user
-  const role: any = user.role as any
-  await ctx.session.$create({ userId: user.id, role })
-  return rest
+  throw new AuthenticationError();
 })

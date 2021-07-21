@@ -113,7 +113,7 @@ export const ListCandidateTable: React.FC = () => {
                   <ErrorMessage name="alamat" component="small" className="text-danger" />
                 </div>
 
-                <button className="btn bg-gradient-success m-1" type="submit">
+                <button disabled={isSubmitting}  className="btn bg-gradient-success m-1" type="submit">
                   Submit
                 </button>
                 <Button variant="secondary" onClick={() => setShowAddModal(false)} className="m-1">

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "blitz dev",
-    "build": "NODE_ENV=production blitz build & blitz prisma migrate deploy",
+    "build": "blitz prisma db push & blitz prisma migrate deploy & blitz build",
     "start": "blitz start",
     "studio": "blitz prisma studio",
     "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx .",
@@ -26,6 +26,7 @@
   "dependencies": {
     "@netlify/plugin-nextjs": "3.7.1",
     "@prisma/client": "2.27.0",
+    "@types/recoil": "0.0.9",
     "blitz": "0.38.5",
     "final-form": "4.20.2",
     "formik": "2.2.9",
@@ -36,6 +37,7 @@
     "react-dom": "alpha",
     "react-final-form": "6.5.3",
     "react-moment": "1.1.1",
+    "recoil": "0.3.1",
     "yup": "0.32.9",
     "zod": "3.5.1"
   },
