@@ -24,6 +24,7 @@
     ]
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "3.7.1",
     "@prisma/client": "2.27.0",
     "blitz": "0.38.5",
     "final-form": "4.20.2",
