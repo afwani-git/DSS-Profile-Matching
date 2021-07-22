@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "blitz"
 import * as _ from "lodash"
 import React, { useState, useEffect, useRef } from "react"
-import { FormGroup, FormLabel, FormControl, Button,Table, Dropdown, Form, InputGroup } from "react-bootstrap"
+import { FormGroup, FormLabel, FormControl, Button,Table, Dropdown, Form, InputGroup, Spinner } from "react-bootstrap"
 import fetchAllCriteria from "../../criteria/queries/getCriteria"
 import fetchAllPenilaian from "../../penilaians/queries/getPenilaians"
 import updatePenilaian from "../../penilaians/mutations/updatePenilaian"
@@ -154,16 +154,16 @@ export const Penilaian: React.FC = () => {
                           <td className="align-middle text-center">{data.nameCandidate}</td>
                           {data.data.map((resDat, num = 1) => (
                             <td key={num++} className="align-middle text-center">
-                            {
-                              selectedId == resDat.idPenilaian ? (
+                              {
+                                  selectedId == resDat.idPenilaian ? (
                                     <div>
                                       <FormControl
                                         defaultValue={resDat.nilai}
                                         ref={inputNilaiRef}
                                         size="sm"
                                       />
-                                      <Button size="sm" variant="outline-secondary" onClick={() => handleUpdatePenilaian(resDat.idPenilaian)}>
-                                        Save
+                                      <Button disabled={!updateNilaiRes.isLoading} size="sm" variant="outline-secondary" onClick={() => handleUpdatePenilaian(resDat.idPenilaian)}>
+                                        {updateNilaiRes.isLoading && selectedId == resDat.idPenilaian ? <Spinner size="sm" animation="grow" /> : "Save"}
                                       </Button>
                                     </div>
                                 ) : (

@@ -779,7 +779,7 @@
   dependencies:
     "@babel/types" "^7.14.5"
 
-"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.13.12", "@babel/helper-module-imports@^7.14.5":
+"@babel/helper-module-imports@^7.0.0", "@babel/helper-module-imports@^7.0.0-beta.49", "@babel/helper-module-imports@^7.13.12", "@babel/helper-module-imports@^7.14.5":
   version "7.14.5"
   resolved "https://registry.yarnpkg.com/@babel/helper-module-imports/-/helper-module-imports-7.14.5.tgz#6d1a44df6a38c957aa7c312da076429f11b422f3"
   integrity sha512-SwrNHu5QWS84XlHwGYPDtCxcA0hrSlL2yhWYLgeOc0w7ccOl2qv4s/nARI0aYZW+bSwAL5CukeXA47B/1NKcnQ==
@@ -1119,7 +1119,7 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.0.0", "@babel/types@^7.12.10", "@babel/types@^7.13.17", "@babel/types@^7.14.5", "@babel/types@^7.14.8", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.6.1", "@babel/types@^7.9.6":
+"@babel/types@^7.0.0", "@babel/types@^7.0.0-beta.49", "@babel/types@^7.12.10", "@babel/types@^7.13.17", "@babel/types@^7.14.5", "@babel/types@^7.14.8", "@babel/types@^7.3.0", "@babel/types@^7.3.3", "@babel/types@^7.6.1", "@babel/types@^7.9.6":
   version "7.14.8"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.14.8.tgz#38109de8fcadc06415fbd9b74df0065d4d41c728"
   integrity sha512-iob4soQa7dZw8nodR/KlOQkPh9S4I8RwCxwRIFuiMRYjOzH/KJzdUfDgz6cGi5dDaclXF4P2PAhCdrBJNIg68Q==
@@ -2246,7 +2246,14 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash@^4.14.165":
+"@types/lodash-es@4.17.4":
+  version "4.17.4"
+  resolved "https://registry.yarnpkg.com/@types/lodash-es/-/lodash-es-4.17.4.tgz#b2e440d2bf8a93584a9fd798452ec497986c9b97"
+  integrity sha512-BBz79DCJbD2CVYZH67MBeHZRX++HF+5p8Mo5MzjZi64Wac39S3diedJYHZtScbRVf4DjZyN6LzA0SB0zy+HSSQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*", "@types/lodash@^4.14.165":
   version "4.14.171"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.171.tgz#f01b3a5fe3499e34b622c362a46a609fdb23573b"
   integrity sha512-7eQ2xYLLI/LsicL2nejW9Wyko3lcpN6O/z0ZLHrEQsg280zIdCv1t/0m6UtBjUHokCGBQ3gYTbHzDkZ1xOBwwg==
@@ -2360,6 +2367,11 @@
   integrity sha512-Gk9vaXfbzc5zCXI9eYE9BI5BNHEp4D3FWjgqBE/ePGYElLAP+KvxBcsdkwfIVvezs605oiyd/VrpiHe3Oeg+Aw==
   dependencies:
     "@types/jest" "*"
+
+"@types/underscore@1.11.3":
+  version "1.11.3"
+  resolved "https://registry.yarnpkg.com/@types/underscore/-/underscore-1.11.3.tgz#d6734f3741ce41b2630018c6b61c6745f6188c07"
+  integrity sha512-Fl1TX1dapfXyDqFg2ic9M+vlXRktcPJrc4PR7sRc7sdVrjavg/JHlbUXBt8qWWqhJrmSqg3RNAkAPRiOYw6Ahw==
 
 "@types/warning@^3.0.0":
   version "3.0.0"
@@ -3022,6 +3034,17 @@ babel-plugin-jest-hoist@^26.6.2:
     "@babel/types" "^7.3.3"
     "@types/babel__core" "^7.0.0"
     "@types/babel__traverse" "^7.0.6"
+
+babel-plugin-lodash@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/babel-plugin-lodash/-/babel-plugin-lodash-3.3.4.tgz#4f6844358a1340baed182adbeffa8df9967bc196"
+  integrity sha512-yDZLjK7TCkWl1gpBeBGmuaDIFhZKmkoL+Cu2MUUjv5VxUZx/z7tBGBCBcQs5RI1Bkz5LLmNdjx7paOyQtMovyg==
+  dependencies:
+    "@babel/helper-module-imports" "^7.0.0-beta.49"
+    "@babel/types" "^7.0.0-beta.49"
+    glob "^7.1.1"
+    lodash "^4.17.10"
+    require-package-name "^2.0.1"
 
 babel-plugin-superjson-next@0.3.0:
   version "0.3.0"
@@ -7399,7 +7422,7 @@ locate-path@^6.0.0:
   dependencies:
     p-locate "^5.0.0"
 
-lodash-es@^4.17.15, lodash-es@^4.17.21:
+lodash-es@4.17.21, lodash-es@^4.17.15, lodash-es@^4.17.21:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.21.tgz#43e626c46e6591b7750beb2b50117390c609e3ee"
   integrity sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==
@@ -7504,7 +7527,7 @@ lodash.union@^4.6.0:
   resolved "https://registry.yarnpkg.com/lodash.union/-/lodash.union-4.6.0.tgz#48bb5088409f16f1821666641c44dd1aaae3cd88"
   integrity sha1-SLtQiECfFvGCFmZkHETdGqrjzYg=
 
-lodash@4.17.21, lodash@4.x, lodash@^4.0.0, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.0:
+lodash@4.17.21, lodash@4.x, lodash@^4.0.0, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.13, lodash@^4.17.15, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -9661,6 +9684,11 @@ require-main-filename@^2.0.0:
   resolved "https://registry.yarnpkg.com/require-main-filename/-/require-main-filename-2.0.0.tgz#d0b329ecc7cc0f61649f62215be69af54aa8989b"
   integrity sha512-NKN5kMDylKuldxYLSUfrbo5Tuzh4hd+2E8NPPX02mZtn1VuREQToYe/ZdlJy+J3uCpfaiGF05e7B8W0iXbQHmg==
 
+require-package-name@^2.0.1:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/require-package-name/-/require-package-name-2.0.1.tgz#c11e97276b65b8e2923f75dabf5fb2ef0c3841b9"
+  integrity sha1-wR6XJ2tluOKSP3Xav1+y7ww4Qbk=
+
 requires-port@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/requires-port/-/requires-port-1.0.0.tgz#925d2601d39ac485e091cf0da5c6e694dc3dcaff"
@@ -11088,6 +11116,11 @@ uncontrollable@^7.2.1:
     "@types/react" ">=16.9.11"
     invariant "^2.2.4"
     react-lifecycles-compat "^3.0.4"
+
+underscore@1.13.1:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
+  integrity sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==
 
 undici@3.3.3:
   version "3.3.3"
