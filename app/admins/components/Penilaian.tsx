@@ -128,7 +128,7 @@ export const Penilaian: React.FC = () => {
             </div>
           </div>
           <div className="card-body px-0 pb-2">
-            <sub className="ml-1 text-sm text-danger">
+            <sub className="mr-1 text-sm text-danger">
             * click nilai untuk edit
             </sub>
             <div className="table-responsive">

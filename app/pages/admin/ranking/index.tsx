@@ -12,12 +12,21 @@ const RankingPage: BlitzPage = () => {
 	const [ gapTable, resTable ] = useQuery(fetchAllTableBobot,{});
 	const [ criteria, resCriteria] = useQuery(fetchAllCriteria, {});
 
+
+	const clickHandler = () => {
+		ProfileMatchingExec(penilaian.penilaians, criteria.criteria, gapTable.tabelBobotGaps)
+	}
+	
+
 	useEffect(() => {
 		ProfileMatchingExec(penilaian.penilaians, criteria.criteria, gapTable.tabelBobotGaps)
-	}, [penilaian, gapTable, criteria]);
+	}, [gapTable, criteria]);
 
 	return (
-		<>	
+		<>
+		<button
+			onClick={clickHandler}
+		>fooo</button>	
 		</>
 	)
 } 
