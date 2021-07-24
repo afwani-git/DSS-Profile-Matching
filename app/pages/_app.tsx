@@ -1,13 +1,15 @@
 import { AppProps, ErrorBoundary, ErrorComponent, useQueryErrorResetBoundary, Head } from "blitz"
+import { RecoilRoot } from "recoil"
 import LoginPage from "./index"
 export default function App({ Component, pageProps }: AppProps) {
   const getLayout = Component.getLayout || ((page) => page)
 
   return getLayout(
     <>
-    
       <ErrorBoundary FallbackComponent={RootErrorFallback}>
-        <Component {...pageProps} />
+        <RecoilRoot>
+          <Component {...pageProps} />
+        </RecoilRoot>
       </ErrorBoundary>
 
       {/*<!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->*/}
