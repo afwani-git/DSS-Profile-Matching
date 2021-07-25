@@ -10,7 +10,7 @@ export const Loading: React.FC = () => {
       }}
     >
       <Card.Body className="d-flex justify-content-center align-items-center">
-        <Spinner size="lg" animation="border" />
+        <Spinner animation="border" />
       </Card.Body>
     </Card>
   )
