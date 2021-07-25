@@ -56,7 +56,9 @@ const RankingPage: BlitzPage = () => {
                         <td className="text-white align-middle text-center">
                           {data.nameCandidate}
                         </td>
-                        <td className="text-white align-middle text-center">{data.value}</td>
+                        <td className="text-white align-middle text-center">
+                          {data.value.toFixed(2)}
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -162,12 +164,12 @@ const RankingPage: BlitzPage = () => {
                           <td className=" align-middle text-center">
                             {`${datCandidate.coreFactorDesc.join(" + ")} / ${
                               datCandidate.coreFactorDesc.length
-                            } = ${datCandidate.coreFactor}`}
+                            } = ${datCandidate.coreFactor.toFixed(2)}`}
                           </td>
                           <td className=" align-middle text-center">
                             {`${datCandidate.secondFactorDesc.join(" + ")} / ${
                               datCandidate.secondFactorDesc.length
-                            } = ${datCandidate.secondFactor}`}
+                            } = ${datCandidate.secondFactor.toFixed(2)}`}
                           </td>
 
                           <td className="text-white font-weight-bolder align-middle text-center bg-gradient-warning">

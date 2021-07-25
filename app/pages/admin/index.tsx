@@ -3,13 +3,11 @@ import { Head, Link, usePaginatedQuery, useRouter, BlitzPage, Routes, useSession
 import { AdminLayout } from "../../core/layouts/Admin"
 
 const AdminsPage: BlitzPage = () => {
-  const session = useSession()
-  console.log(session)
   return (
     <div className="row">
       <div className="col-md-12">
         <div className="card">
-          <div className="card-body">fooo baarreeeed</div>
+          <h4 className="card-body text-center">Welcome To Dashboard</h4>
         </div>
       </div>
     </div>
